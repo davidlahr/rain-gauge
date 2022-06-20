@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+{% import "bootstrap/wtf.html" as wtf%}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class = "container">
+
+<li class="list-group-item h2">The Rainfall Total for {{ form.address.data.title()}}</li></h2>
+<li class="list-group-item h2">From {{form.start_date.data.strftime('%m-%d-%Y')}} through {{form.end_date.data.strftime('%m-%d-%Y')}}</li>
+<li class="list-group-item h2"> {{ "{:,.2f}".format(total) }} inches</li>
+<br>
+<!--    TABLE TEST-->
+    <div class="container-fluid">
+        <h4>Daily Totals</h4>
+        <table id="data" class="table table-striped header-fixed">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Inches</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            {% for x in data %}
+
+
+            <tr>
+
+                <td>{{ x.datetimeStr|format_datetime }}</td>
+                <td>{{ "{:,.2f}".format(x.precip) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<!--            TABLE TEST-->
+<br>
+
+<a class="btn btn-primary" href="{{ url_for('main_page') }}" role="button">New Search</a>
+    </div>
+{% endblock %}
