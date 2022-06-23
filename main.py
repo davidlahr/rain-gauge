@@ -59,7 +59,7 @@ def get_rain(weather_params):
         precip = data[d]['precip']
         total += precip
         # print(data[d]['datetimeStr']+str(data[d]['precip']))
-        print(f"{date} {precip}")
+        # print(f"{date} {precip}")
 
     return total, data
 
