@@ -8,9 +8,9 @@ RainGauge Results
 {% block content %}
 <div class = "container">
 
-<li class="list-group-item h2">The Rainfall Total for {{ form.address.data.title()}}</li></h2>
-<li class="list-group-item h2">From {{form.start_date.data.strftime('%m-%d-%Y')}} through {{form.end_date.data.strftime('%m-%d-%Y')}}</li>
-<li class="list-group-item h2"> {{ "{:,.2f}".format(total) }} inches</li>
+<li class="list-group-item h2">Location: {{ form.address.data.title()}}</li></h2>
+<li class="list-group-item h2">Date Range: {{form.start_date.data.strftime('%m-%d-%Y')}} - {{form.end_date.data.strftime('%m-%d-%Y')}}</li>
+<li class="list-group-item h2">Precipitation: {{ "{:,.2f}".format(total) }} in</li>
 <br>
 <!--    TABLE TEST-->
     <div class="container-fluid">
