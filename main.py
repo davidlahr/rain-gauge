@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 import pandas as pd
 
@@ -39,29 +39,36 @@ def get_rain(weather_params):
     response.raise_for_status()
 
     weather_data = response.json()
+    print(weather_data)
 
-    # PARSING
-    locate = weather_data["locations"]
-    data = locate[weather_params['locations']]['values']
+    try:
+        # PARSING
+        locate = weather_data["locations"]
+        data = locate[weather_params['locations']]['values']
 
-    print(data)
-    # TEST DATAFRAME
-    dataf = pd.DataFrame([data][0])
-    print(dataf)
+        print(data)
+        # TEST DATAFRAME
+        dataf = pd.DataFrame([data][0])
+        print(dataf)
 
-    # data1 = data[1]
-    # print(data1['precip'])
+        # data1 = data[1]
+        # print(data1['precip'])
 
-    total = 0
+        total = 0
 
-    for d in range(len(data)):
-        date = data[d]['datetimeStr']
-        precip = data[d]['precip']
-        total += precip
-        # print(data[d]['datetimeStr']+str(data[d]['precip']))
-        # print(f"{date} {precip}")
+        for d in range(len(data)):
 
-    return total, data
+            date = data[d]['datetimeStr']
+            precip = data[d]['precip']
+            total += precip
+            # print(data[d]['datetimeStr']+str(data[d]['precip']))
+            # print(f"{date} {precip}")
+
+        return total, data
+
+    except:
+        pass
+
 
 @app.route('/', methods=["GET", "POST"])
 def main_page():
@@ -76,11 +83,14 @@ def main_page():
             "key": api_key,
         }
         rain = get_rain(weather_params)
-        total = rain[0]
-        data = rain[1]
+        if rain:
+            total = rain[0]
+            data = rain[1]
 
-        # return('hello world')
-        return render_template("results.html", total=total, form=form, data=data)
+            # return('hello world')
+            return render_template("results.html", total=total, form=form, data=data)
+        flash('No Data Available For This Location and Date Range.  Pick a Different Date Range.')
+        return redirect(url_for('main_page'))
     return render_template('index.html', form=form)
 
 
