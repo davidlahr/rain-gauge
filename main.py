@@ -50,6 +50,7 @@ def get_rain(weather_params):
         # TEST DATAFRAME
         dataf = pd.DataFrame([data][0])
         print(dataf)
+        print(dataf.columns)
 
         # data1 = data[1]
         # print(data1['precip'])

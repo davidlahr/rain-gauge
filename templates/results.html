@@ -6,12 +6,32 @@ RainGauge Results
 {% endblock %}
 
 {% block content %}
-<div class = "container">
+<!--<div class = "container">-->
 
-<li class="list-group-item h2">Location: {{ form.address.data.title()}}</li></h2>
-<li class="list-group-item h2">Date Range: {{form.start_date.data.strftime('%m-%d-%Y')}} - {{form.end_date.data.strftime('%m-%d-%Y')}}</li>
-<li class="list-group-item h2">Precipitation: {{ "{:,.2f}".format(total) }} in</li>
-<br>
+<!--<li class="list-group-item h2">Location: {{ form.address.data.title()}}</li></h2>-->
+<!--<li class="list-group-item h2">Date Range: {{form.start_date.data.strftime('%m-%d-%Y')}} - {{form.end_date.data.strftime('%m-%d-%Y')}}</li>-->
+<!--<li class="list-group-item h2">Precipitation: {{ "{:,.2f}".format(total) }} in</li>-->
+<!--<br>-->
+<!--    NEW TABLE-->
+    <div class="container-fluid">
+
+        <table id="data" class="table primary">
+            <thead>
+            <tr>
+                <th style="width: 33.3%">Location</th>
+                <th class="text-center" style="width: 33.3%">Date Range</th>
+                <th class="text-end" style="width: 33.3%">Precipitation Total (Liquid)</th>
+            </tr>
+            </thead>
+<tbody>
+<td><h4>{{ form.address.data.title()}}</h4></td>
+<td class="text-center"><h4>{{form.start_date.data.strftime('%m-%d-%Y')}} - {{form.end_date.data.strftime('%m-%d-%Y')}}</h4></td>
+<td class="text-end"><h4>{{ "{:,.2f}".format(total) }}</h4></td>
+</tbody>
+        </table>
+
+
+            <br>
 <!--    TABLE TEST-->
     <div class="container-fluid">
         <h4>Daily Totals</h4>
@@ -19,9 +39,12 @@ RainGauge Results
             <thead>
             <tr>
                 <th>Date</th>
-                <th>Inches</th>
+                <th>Precip Inches</th>
+                <th>Wind Chill (F)</th>
+                <th>Heat Index (F)</th>
+                <th>Snow Depth</th>
+                <th>Conditions</th>
             </tr>
-
             </thead>
             <tbody>
             {% for x in data %}
@@ -31,6 +54,10 @@ RainGauge Results
 
                 <td>{{ x.datetimeStr|format_datetime }}</td>
                 <td>{{ "{:,.2f}".format(x.precip) }}</td>
+                <td>{{ (x.windchill) }}</td>
+                <td>{{ (x.heatindex) }}</td>
+                <td>{{ (x.snowdepth) }}</td>
+                <td>{{ (x.conditions) }}</td>
             </tr>
             {% endfor %}
             </tbody>
