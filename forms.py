@@ -8,7 +8,7 @@ from datetime import date
 
 
 class CheckRain(FlaskForm):
-    address = StringField('Enter a City and State OR Zip Code',default='Chicago, IL', validators=[DataRequired()])
+    address = StringField('Enter a City and State OR Zip Code',default='Columbus,OH', validators=[DataRequired()])
     start_date = DateField('Date From', default=date.today())
     end_date = DateField('Date to', default=date.today())
 
